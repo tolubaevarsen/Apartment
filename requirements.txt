@@ -1,0 +1,14 @@
+wheel # вспомогательная библиотека для скачивания других библиотек
+djangorestframework
+django-filter # Фильтрация
+
+drf-yasg # swagger
+
+djangorestframework-simplejwt # Token
+
+psycopg2-binary # Работа с БД
+Pillow # Работа с фото
+python-decouple # Защита конфиденциальных данных
+
+python-slugify # создание slug
+celery # одновременное отправление разных запросов
