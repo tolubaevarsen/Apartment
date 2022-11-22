@@ -135,6 +135,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_BACKENDS = 'django.core.mail.backends.smtp.EmailBackend' # класс отвечающий за отправку писем
+EMAIL_HOST_USER = config('EMAIL_HOST_USER') # почта с которой отправляются письма
+EMAIL_PORT = config('EMAIL_PORT', default=587)
+EMAIL_HOST = config('EMAIL_HOST') # какой хост используется для отправки писем
+EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD') # пароль от почты
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool) # вид соединения для отправки писем
+
 AUTH_USER_MODEL = 'account.User'
 
 REST_FRAMEWORK = {
