@@ -6,9 +6,9 @@ from django.utils.crypto import get_random_string
 class UserManager(BaseUserManager):
     def _create(self, username, email, password, **extra_fileds):
         if not username:
-            raise ValueError('User must have username!')
+            raise ValueError('Обязательное поле для заполнения')
         if not email:
-            raise ValueError('User must have email!')
+            raise ValueError('Обязательное поле для заполнения')
         user = self.model(
             username=username,
             email=self.normalize_email(email),
@@ -58,5 +58,5 @@ class User(AbstractBaseUser):
         self.save()
 
     class Meta:
-        verbose_name = 'User'
-        verbose_name_plural = 'Users'
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
