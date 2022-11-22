@@ -27,7 +27,7 @@ class RegistrationView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(
-                'Thanks for registration! Activate your account via link in your email',
+                'Спасибо за регистрацию, активируйте аккаунт, код отправлен на ваш email',
                 status=status.HTTP_201_CREATED
             )
 
@@ -36,14 +36,14 @@ class AccountActivationView(APIView):
         user = User.objects.filter(activation_code=activation_code).first()
         if not user:
             return Response(
-                'Page not found', 
+                'Страница не найдена', 
                 status=status.HTTP_404_NOT_FOUND
                 )
         user.is_active = True
         user.activation_code = ''
         user.save()
         return Response(
-            'Account activated! You can log in now',
+            'Ваш аккаунт активирован! Вы можете войти',
             status=status.HTTP_200_OK
         )
 
@@ -56,7 +56,7 @@ class ChangePasswordView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.set_new_password()
             return Response(
-                'Password succesfully changed',
+                'Пароль успешно изменен!',
                 status=status.HTTP_200_OK
             )
 
@@ -67,7 +67,7 @@ class RestorePasswordView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.send_code()
             return Response(
-                'Code was sent ti your email',
+                'Код отправлен на ваш email!',
                 status=status.HTTP_200_OK
             )
 
@@ -79,7 +79,7 @@ class SetRestoredPasswordView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.set_new_password()
             return Response(
-                'Password restored succesfully',
+                'Пароль успешно восстановлен!',
                 status=status.HTTP_200_OK
             )
 
@@ -91,6 +91,6 @@ class DeleteAccountView(APIView):
         username = request.user.username
         User.objects.get(username=username).delete()
         return Response(
-            'Account deleted successfully',
+            'Аккаунт успешно удален!',
             status=status.HTTP_204_NO_CONTENT
         )
