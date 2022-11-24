@@ -1,13 +1,8 @@
-from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 
 from .serializers import (
     CategorySerializer,
@@ -21,9 +16,26 @@ from .models import (
     )  # ProductImage
 
 
+from django_filters.rest_framework import DjangoFilterBackend
+from .filter import ApartmentFilter
+
+from rest_framework import filters
+from django_filters import rest_framework as rest_filter
+
+
 class ApartmentViewSet(ModelViewSet):
     queryset = Apartment.objects.all()
     serializer_class = ApartmentSerializer
+    # filter_backends = (DjangoFilterBackend)
+    # filterset_class = ApartmentFilter
+    filter_backends = [filters.SearchFilter,
+        rest_filter.DjangoFilterBackend,
+        filters.OrderingFilter
+        ]
+
+    class Meta:
+        model = Apartment
+        fields = ('__all__')
     
     def get_serializer_class(self):
         if self.action == 'list':
@@ -50,5 +62,9 @@ class ApartmentViewSet(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+    class Meta:
+        model = Category
+        fields = ('__all__')
     
 

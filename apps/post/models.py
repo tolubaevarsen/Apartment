@@ -4,18 +4,12 @@ from django.contrib.auth import get_user_model
 from .utils import get_time
 from slugify import slugify
 
+User = get_user_model()
+
 
 class Category(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, primary_key=True, blank=True)
-    parent_category = models.ForeignKey(
-        verbose_name='родительская категория',
-        to='self',
-        on_delete=models.CASCADE,
-        related_name='subcategories',
-        blank=True,
-        null=True
-        )
     
     def __str__(self) -> str:
         return self.title
@@ -35,7 +29,8 @@ class Apartment(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=220, primary_key=True, blank=True)
     address = models.CharField(max_length=50)
-    square = models.CharField(max_length=15, blank=True, null=True)
+    rooms = models.IntegerField(default=0)
+    square_meters = models.IntegerField(default=0)
     description = models.TextField() # описание
     price = models.DecimalField(max_digits=10, decimal_places=2)
     in_stock = models.BooleanField(default=False)
@@ -48,11 +43,13 @@ class Apartment(models.Model):
         on_delete=models.CASCADE,
         related_name='apartments',
         )
-    # user = models.ForeignKey(
-    #     to=User,
-    #     on_delete=models.CASCADE,
-    #     related_name='products'
-    # )
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name='products',
+        blank=True,
+        null=True
+    )
 
     def save(self, *args, **kwargs):
         if not self.slug:

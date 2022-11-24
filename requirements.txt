@@ -12,3 +12,5 @@ python-decouple # Защита конфиденциальных данных
 
 python-slugify # создание slug
 celery # одновременное отправление разных запросов
+
+redis

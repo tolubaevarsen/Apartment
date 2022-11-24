@@ -18,7 +18,7 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-
+from apps.post.views import ApartmentViewSet
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -36,6 +36,6 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'), # swagger 
     path('admin/', admin.site.urls),
-    # path('api/account/', include('apps.account.urls')),
-    path('api/apartment/', include('apps.post.urls')),
+    path('api/account/', include('apps.account.urls')),
+    # path('api/apartments/', include('apps.post.urls')), #список в виде json
 ]

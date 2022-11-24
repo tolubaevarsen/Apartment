@@ -31,7 +31,7 @@ class ApartmentSerializer(serializers.ModelSerializer):
 class ApartmentListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Apartment
-        fields = ('image', 'title', 'price', 'in_stock', 'slug', 'address', 'description')
+        fields = ('title', 'user', 'slug', 'address', 'square_meters', 'rooms', 'price', 'image', 'in_stock', 'description', 'created_at', 'category')
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
